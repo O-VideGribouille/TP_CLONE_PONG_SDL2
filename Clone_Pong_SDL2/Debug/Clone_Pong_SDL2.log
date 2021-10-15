@@ -1,6 +1,4 @@
 ﻿  main.cpp
-C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\main.cpp(81,19): error C2059: erreur de syntaxe : '&'
-C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\main.cpp(82,19): error C2059: erreur de syntaxe : '&'
-C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\main.cpp(83,19): error C2059: erreur de syntaxe : '&'
-C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\main.cpp(84,19): error C2059: erreur de syntaxe : '&'
-C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\main.cpp(16): fatal error C1075: '{' : jeton correspondant introuvable
+C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\main.cpp(121,17): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
+C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\main.cpp(122,17): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
+  Clone_Pong_SDL2.vcxproj -> C:\Users\laboi\OneDrive\Documents\Ludus_Academie_2021-2022\ALgorithme\Trimestre1\SDL\TP_Clone_Pong_SDL2\TP_CLONE_PONG_SDL2\Clone_Pong_SDL2\Debug\Clone_Pong_SDL2.exe
