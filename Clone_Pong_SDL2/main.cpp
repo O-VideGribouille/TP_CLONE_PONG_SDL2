@@ -133,11 +133,42 @@ int main(int argc, char** argv) {
                  quit = true;
              }
 
-           /*  else if (e.type == SDL_KEYDOWN) {
+             else if (e.type == SDL_KEYDOWN) {
 
+                 //Déplacement Joueur1;                
+                 if (e.key.keysym.sym == SDLK_UP) {//Vers le haut;
+                     playerPadle1.y -= 50;
+                 }
+                 else if (e.key.keysym.sym == SDLK_DOWN) { //Vers le bas;
+                     playerPadle1.y += 50;
+                 }
+                 //Limitation du déplacement des raquettes
+                 //Evite le hors écran
+                 if (playerPadle1.y < 0) {
+                     playerPadle1.y = 0;
+                 }
+                 else if (playerPadle1.y > 600 - playerPadle1.h) {
+                     playerPadle1.y = 600 - playerPadle1.h;
+                 }
 
+                 //Déplacement Joueur2
+                 if (e.key.keysym.sym == SDLK_z) {//Vers le haut;
+                     playerPadle2.y -= 50;
+                 }
+                 else if (e.key.keysym.sym == SDLK_s) { //Vers le bas;
+                     playerPadle2.y += 50;
+                 }
 
-             }*/
+                 //Limitation du déplacement des raquettes
+                 //Evite le hors écran
+                 if (playerPadle2.y < 0) {
+                     playerPadle2.y = 0;
+                 }
+                 else if (playerPadle2.y > 600 - playerPadle2.h) {
+                     playerPadle2.y = 600 - playerPadle2.h;
+                 }
+
+             }
 
 
 
