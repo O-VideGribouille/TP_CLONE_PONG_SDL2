@@ -107,13 +107,19 @@ int main(int argc, char** argv) {
     playerPadle2.h = Raquette2.getH();
 
     //Init Balle
-    CBalle cBalle(((800 / 2) - (20 / 2)), ((600 / 2) - (20 / 2)), 32, 32);
+    srand(time(NULL));
+    CBalle cBalle(((800 / 2) - (20 / 2)), ((600 / 2) - (20 / 2)), 32, 32, 0, 0);
+    //rand() % 4 --> direction de 0 à 3, chiffres positifs
+    //(rand() % 5) - 2 --> direction de -2 à 2, permet d'avoir des chiffres négatifs et positifs
 
        SDL_Rect ball;
        ball.x = cBalle.getX();
        ball.y = cBalle.getY();
        ball.w = cBalle.getW();
        ball.h = cBalle.getH();
+
+       cBalle.setspeedX((rand() % 5) - 2);
+       cBalle.setspeedY((rand() % 5) - 2);
 
 
 
@@ -122,60 +128,81 @@ int main(int argc, char** argv) {
        float bY = ball.y;
 
 
-
+      
 
        // Jeu
     while (!quit) {
 
          //Event
-         while (SDL_PollEvent(&e) > 0) {
-             if (e.type == SDL_QUIT) {
-                 quit = true;
-             }
+        while (SDL_PollEvent(&e) > 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
 
-             else if (e.type == SDL_KEYDOWN) {
+            else if (e.type == SDL_KEYDOWN) {
 
-                 //Déplacement Joueur1;                
-                 if (e.key.keysym.sym == SDLK_UP) {//Vers le haut;
-                     playerPadle1.y -= 50;
-                 }
-                 else if (e.key.keysym.sym == SDLK_DOWN) { //Vers le bas;
-                     playerPadle1.y += 50;
-                 }
-                 //Limitation du déplacement des raquettes
-                 //Evite le hors écran
-                 if (playerPadle1.y < 0) {
-                     playerPadle1.y = 0;
-                 }
-                 else if (playerPadle1.y > 600 - playerPadle1.h) {
-                     playerPadle1.y = 600 - playerPadle1.h;
-                 }
+                //Déplacement Joueur1;                
+                if (e.key.keysym.sym == SDLK_UP) {//Vers le haut;
+                    playerPadle1.y -= 50;
+                }
+                else if (e.key.keysym.sym == SDLK_DOWN) { //Vers le bas;
+                    playerPadle1.y += 50;
+                }
+                //Limitation du déplacement des raquettes
+                //Evite le hors écran
+                if (playerPadle1.y < 0) {
+                    playerPadle1.y = 0;
+                }
+                else if (playerPadle1.y > 600 - playerPadle1.h) {
+                    playerPadle1.y = 600 - playerPadle1.h;
+                }
 
-                 //Déplacement Joueur2
-                 if (e.key.keysym.sym == SDLK_z) {//Vers le haut;
-                     playerPadle2.y -= 50;
-                 }
-                 else if (e.key.keysym.sym == SDLK_s) { //Vers le bas;
-                     playerPadle2.y += 50;
-                 }
+                //Déplacement Joueur2
+                if (e.key.keysym.sym == SDLK_z) {//Vers le haut;
+                    playerPadle2.y -= 50;
+                }
+                else if (e.key.keysym.sym == SDLK_s) { //Vers le bas;
+                    playerPadle2.y += 50;
+                }
 
-                 //Limitation du déplacement des raquettes
-                 //Evite le hors écran
-                 if (playerPadle2.y < 0) {
-                     playerPadle2.y = 0;
-                 }
-                 else if (playerPadle2.y > 600 - playerPadle2.h) {
-                     playerPadle2.y = 600 - playerPadle2.h;
-                 }
-
-             }
+                //Limitation du déplacement des raquettes
+                //Evite le hors écran
+                if (playerPadle2.y < 0) {
+                    playerPadle2.y = 0;
+                }
+                else if (playerPadle2.y > 600 - playerPadle2.h) {
+                    playerPadle2.y = 600 - playerPadle2.h;
+                }
 
 
 
+            }
+
+        }
+             // Update
+
+             //déplacement de la balle
+             cBalle.DplcmntB();
 
 
-                     // Renderer et dessin
-              SDL_SetRenderDrawColor(renderer, 0, 27, 27, 27);// Color le fond en noir
+             bX += cBalle.getspeedX(); //sert à la direction/déplacement de la balle
+             bY += cBalle.getspeedY();
+
+
+             
+
+             //Rebond parrois
+
+             ball.x = bX;
+             ball.y = bY;
+
+
+
+
+
+
+             // Renderer et dessin
+             SDL_SetRenderDrawColor(renderer, 0, 27, 27, 27);// Color le fond en noir
              SDL_RenderClear(renderer); // Efface l'écran et les couleur disposées;
 
 
@@ -193,7 +220,95 @@ int main(int argc, char** argv) {
 
 
 
-          }
+
+
+
+              //Text replay + recommencer une partie
+              if (scoring1 >= 3 || scoring2 >= 3) {
+
+                  //endplay = true;
+
+
+                  ball.x = bX = 0;
+                  ball.y = bY = 0;
+
+
+                  SDL_RenderClear(renderer); // Efface l'écran et les couleur disposées;
+
+
+                  //Mise en place du texte Replay
+                  //IMG Titre Replay
+                  SDL_Surface* surfaceTexte1;
+                  SDL_Texture* textureTexte1;
+                  surfaceTexte1 = SDL_LoadBMP("./image/strgReplay.bmp");
+                  textureTexte1 = SDL_CreateTextureFromSurface(renderer, surfaceTexte1);
+                  SDL_FreeSurface(surfaceTexte1);
+
+
+                  SDL_Rect Texte1;
+                  Texte1.x = 400;
+                  Texte1.y = 300;
+                  Texte1.w = 80;
+                  Texte1.h = 32;
+
+                  SDL_Surface* surfaceTexte2;
+                  SDL_Texture* textureTexte2;
+                  surfaceTexte2 = SDL_LoadBMP("./image/touch.bmp");
+                  textureTexte2 = SDL_CreateTextureFromSurface(renderer, surfaceTexte2);
+                  SDL_FreeSurface(surfaceTexte2);
+
+
+                  SDL_Rect Texte2;
+                  Texte2.x = 500;
+                  Texte2.y = 250;
+                  Texte2.w = 180;
+                  Texte2.h = 32;
+
+                  SDL_Surface* surfaceTexte3;
+                  SDL_Texture* textureTexte3;
+                  surfaceTexte3 = SDL_LoadBMP("./image/any.bmp");
+                  textureTexte3 = SDL_CreateTextureFromSurface(renderer, surfaceTexte3);
+                  SDL_FreeSurface(surfaceTexte3);
+
+
+                  SDL_Rect Texte3;
+                  Texte3.x = 500;
+                  Texte3.y = 300;
+                  Texte3.w = 180;
+                  Texte3.h = 32;
+
+                  SDL_Surface* surfaceTexte4;
+                  SDL_Texture* textureTexte4;
+                  surfaceTexte4 = SDL_LoadBMP("./image/button.bmp");
+                  textureTexte4 = SDL_CreateTextureFromSurface(renderer, surfaceTexte4);
+                  SDL_FreeSurface(surfaceTexte4);
+
+
+                  SDL_Rect Texte4;
+                  Texte4.x = 500;
+                  Texte4.y = 350;
+                  Texte4.w = 180;
+                  Texte4.h = 32;
+
+
+                  SDL_RenderCopy(renderer, textureTexte1, NULL, &Texte1);
+                  SDL_RenderCopy(renderer, textureTexte2, NULL, &Texte2);
+                  SDL_RenderCopy(renderer, textureTexte3, NULL, &Texte3);
+                  SDL_RenderCopy(renderer, textureTexte3, NULL, &Texte4);
+
+
+                  // Rejouer une partie
+
+
+
+
+
+
+              }
+
+
+
+          //}
 
             // Affiche le nouveau contenu
             SDL_RenderPresent(renderer);

@@ -24,19 +24,15 @@ protected:
 	int n_w;
 	int n_h;
 
-//	float bX;
-//	float bY;
+	float speedX;
+	float speedY;
 
 
 public:
 
 	//accessible depuis la classe enfant
 	CBalle();
-	//CBalle(int n_x, int n_y, int n_w, int n_h, float bX, float bY);
-	CBalle(int n_x, int n_y, int n_w, int n_h);
-
-	//Constructeur de copie
-//	CBalle(const CBalle& p);
+	CBalle(int n_x, int n_y, int n_w, int n_h, float speedX, float speedY);
 
 	//Destructeur
 	~CBalle();
@@ -48,8 +44,8 @@ public:
 	int getW()const;
 	int getH()const;
 
-//	float getBX()const;
-//	float getBY()const;
+	float getspeedX()const;
+	float getspeedY()const;
 
 
 
@@ -60,12 +56,12 @@ public:
 	void setW(int n_w = 9);
 	void setH(int n_h = 9);
 
-/*	void setBX(float bX);
-	void setBY(float bY);*/
+	void setspeedX(float speedX);
+	void setspeedY(float speedY);
 
 
 	//Prototypes
 	//Changement de la direction de la balle
-//	void chgmntDrect();
+	void DplcmntB();
 
 };
