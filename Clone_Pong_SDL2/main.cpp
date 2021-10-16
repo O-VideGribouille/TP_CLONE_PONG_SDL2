@@ -184,17 +184,19 @@ int main(int argc, char** argv) {
              //déplacement de la balle
              cBalle.DplcmntB();
 
-
-             bX += cBalle.getspeedX(); //sert à la direction/déplacement de la balle
-             bY += cBalle.getspeedY();
-
-
              
 
-             //Rebond parrois
+             ball.x += cBalle.getspeedX(); //sert à la direction/déplacement de la balle
+             ball.y += cBalle.getspeedY();
 
-             ball.x = bX;
-             ball.y = bY;
+
+             //Rebond parrois
+             cBalle.CllsnandRbd(bX, bY, ball, playerPadle1, playerPadle2);
+
+
+
+
+
 
 
 
@@ -227,11 +229,6 @@ int main(int argc, char** argv) {
               if (scoring1 >= 3 || scoring2 >= 3) {
 
                   //endplay = true;
-
-
-                  ball.x = bX = 0;
-                  ball.y = bY = 0;
-
 
                   SDL_RenderClear(renderer); // Efface l'écran et les couleur disposées;
 
@@ -312,6 +309,8 @@ int main(int argc, char** argv) {
 
             // Affiche le nouveau contenu
             SDL_RenderPresent(renderer);
+
+            SDL_Delay(1000 / 60);
      }
 
 

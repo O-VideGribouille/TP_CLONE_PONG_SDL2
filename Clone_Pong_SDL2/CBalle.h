@@ -64,4 +64,6 @@ public:
 	//Changement de la direction de la balle
 	void DplcmntB();
 
+	void CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2);
+
 };

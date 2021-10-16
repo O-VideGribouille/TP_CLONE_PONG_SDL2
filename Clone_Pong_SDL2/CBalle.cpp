@@ -111,12 +111,93 @@ void CBalle::DplcmntB()
 		speedY = -1.0f;
 	}
 
-	speedX /= 20.0f;
-	speedY /= 20.0f;
+	//speedX += (speedX/abs(speedX))/1000;
+	//speedY += (speedY / abs(speedY))/1000;
 
 
 
 
+
+}
+
+void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
+{
+	//gauche + collision
+	if (ball.x <= 0.0f) {
+		ball.x = 0.0f;
+		speedX *= -1.0f;
+		
+
+	}
+
+	//droite + collision
+	if (ball.x >= 800.0f - ball.w) {
+		ball.x = 800.0f - ball.w;
+		speedX *= -1.0f;
+
+	}
+
+	//haut
+	if (ball.y <= 0.0f) {
+		ball.y = 0.0f;
+		speedY *= -1.0f;
+	}
+
+	//bas
+	if (ball.y >= 600.0f - ball.h) {
+		ball.y = 600.0f - ball.h;
+		speedY *= -1.0f;
+	}
+
+
+
+
+	/*//Collision raquettre Joueur1
+	//la colision se fait du côté droit
+	if (ball.x + ball.w >= playerPadle1.x
+		&& ball.x + ball.w < playerPadle1.x + playerPadle1.w
+		&& ball.y >= playerPadle1.y
+		&& ball.y < playerPadle1.y + playerPadle1.h) {
+		ball.x = playerPadle1.x - ball.w;
+		speedX = -abs(speedX)*1.01;
+
+	}
+
+	//Collision raquettre Joueur2
+	//la colision se fait du côté droit
+	if (ball.x >= playerPadle2.x
+		&& ball.x < playerPadle2.x + playerPadle2.w
+		&& ball.y >= playerPadle2.y
+		&& ball.y < playerPadle2.y + playerPadle2.h) {
+		ball.x = playerPadle2.x + playerPadle2.w;
+		speedX = abs(speedX)*1.01;
+
+	}*/
+
+	//Collision raquettre Joueur1
+	//la colision se fait du côté droit
+	if ((ball.x + ball.w >= playerPadle1.x
+		&& ball.x + ball.w < playerPadle1.x + playerPadle1.w
+		&& ball.y >= playerPadle1.y
+		&& ball.y < playerPadle1.y + playerPadle1.h)
+		||
+		(ball.x >= playerPadle2.x
+		&& ball.x < playerPadle2.x + playerPadle2.w
+		&& ball.y >= playerPadle2.y
+		&& ball.y < playerPadle2.y + playerPadle2.h)) {
+		
+		speedX = -speedX * 1.01;
+
+		if (ball.x + ball.w >= playerPadle1.x
+			&& ball.x + ball.w < playerPadle1.x + playerPadle1.w
+			&& ball.y >= playerPadle1.y
+			&& ball.y < playerPadle1.y + playerPadle1.h) {
+
+			ball.x = playerPadle1.x - ball.w;
+		} else {
+			ball.x = playerPadle2.x + playerPadle2.w;
+		}
+	}
 
 }
 
