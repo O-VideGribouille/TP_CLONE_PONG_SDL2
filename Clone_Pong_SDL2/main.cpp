@@ -35,8 +35,9 @@ int main(int argc, char** argv) {
     SDL_FreeSurface(surfaceBall);
 
     int scoring1 = 0;// servira pour le changement de score sans devoir créer d'autres image à la suite
+    int *Pscoring1 = &scoring1;// servira pour le changement de score sans devoir créer d'autres image à la suite
 
-    string scrlink1 = "./Sprite/" + to_string(scoring1) + ".bmp";// convertie l'integer en chaine de caractères
+    string scrlink1 = "./Sprite/" + to_string(*Pscoring1) + ".bmp";// convertie l'integer en chaine de caractères
     //IMG Score Joueur1
     SDL_Surface* surfaceSCR1;
     SDL_Texture* textureSCR1;
@@ -45,7 +46,8 @@ int main(int argc, char** argv) {
     SDL_FreeSurface(surfaceSCR1);
 
     int scoring2 = 0;
-    string scrlink2 = "./Sprite/" + to_string(scoring2) + ".bmp";
+    int *Pscoring2 = &scoring2;
+    string scrlink2 = "./Sprite/" + to_string(*Pscoring2) + ".bmp";
     //IMG Score Joueur2
     SDL_Surface* surfaceSCR2;
     SDL_Texture* textureSCR2;
@@ -89,7 +91,7 @@ int main(int argc, char** argv) {
 
 
     //Init raquette Joueur1
-    CJoueur Raquette1(750, (600 / 2) - (100 / 2), 32, 100);
+    CJoueur Raquette1(760, (600 / 2) - (100 / 2), 32, 100);
     SDL_Rect playerPadle1;
     playerPadle1.x = Raquette1.getX();
     playerPadle1.y = Raquette1.getY(); 
@@ -99,7 +101,7 @@ int main(int argc, char** argv) {
 
 
     //Init raquette Joueur2
-    CJoueur Raquette2(20, (600 / 2) - (100 / 2), 32, 100 );
+    CJoueur Raquette2(10, (600 / 2) - (100 / 2), 32, 100 );
     SDL_Rect playerPadle2;
     playerPadle2.x = Raquette2.getX();
     playerPadle2.y = Raquette2.getY();
@@ -191,13 +193,13 @@ int main(int argc, char** argv) {
 
 
              //Rebond parrois
-             cBalle.CllsnandRbd(bX, bY, ball, playerPadle1, playerPadle2);
+           //  cBalle.CllsnandRbd(bX, bY, ball, playerPadle1, playerPadle2);
+            // cBalle.CllsnandRbd1(ball, playerPadle1, playerPadle2, Pscoring1, Pscoring2, surfaceSCR1, surfaceSCR2, textureSCR1, textureSCR2, scrlink1, scrlink2, renderer);
 
+             textureSCR1 = cBalle.CllsnandRbd1(ball,  Pscoring1,  surfaceSCR1,  textureSCR1,  scrlink1, renderer);
+             textureSCR2 = cBalle.CllsnandRbd2(ball, Pscoring2,surfaceSCR2, textureSCR2, scrlink2, renderer);
 
-
-
-
-
+             cBalle.CllsnandRbd3(ball, playerPadle1, playerPadle2);
 
 
 
@@ -237,20 +239,20 @@ int main(int argc, char** argv) {
                   //IMG Titre Replay
                   SDL_Surface* surfaceTexte1;
                   SDL_Texture* textureTexte1;
-                  surfaceTexte1 = SDL_LoadBMP("./image/strgReplay.bmp");
+                  surfaceTexte1 = SDL_LoadBMP("./Sprite/strgReplay.bmp");
                   textureTexte1 = SDL_CreateTextureFromSurface(renderer, surfaceTexte1);
                   SDL_FreeSurface(surfaceTexte1);
 
 
                   SDL_Rect Texte1;
                   Texte1.x = 400;
-                  Texte1.y = 300;
-                  Texte1.w = 80;
-                  Texte1.h = 32;
+                  Texte1.y = 200;
+                  Texte1.w = 180;
+                  Texte1.h = 152;
 
                   SDL_Surface* surfaceTexte2;
                   SDL_Texture* textureTexte2;
-                  surfaceTexte2 = SDL_LoadBMP("./image/touch.bmp");
+                  surfaceTexte2 = SDL_LoadBMP("./Sprite/touch.bmp");
                   textureTexte2 = SDL_CreateTextureFromSurface(renderer, surfaceTexte2);
                   SDL_FreeSurface(surfaceTexte2);
 
@@ -263,7 +265,7 @@ int main(int argc, char** argv) {
 
                   SDL_Surface* surfaceTexte3;
                   SDL_Texture* textureTexte3;
-                  surfaceTexte3 = SDL_LoadBMP("./image/any.bmp");
+                  surfaceTexte3 = SDL_LoadBMP("./Sprite/any.bmp");
                   textureTexte3 = SDL_CreateTextureFromSurface(renderer, surfaceTexte3);
                   SDL_FreeSurface(surfaceTexte3);
 
@@ -276,7 +278,7 @@ int main(int argc, char** argv) {
 
                   SDL_Surface* surfaceTexte4;
                   SDL_Texture* textureTexte4;
-                  surfaceTexte4 = SDL_LoadBMP("./image/button.bmp");
+                  surfaceTexte4 = SDL_LoadBMP("./Sprite/button.bmp");
                   textureTexte4 = SDL_CreateTextureFromSurface(renderer, surfaceTexte4);
                   SDL_FreeSurface(surfaceTexte4);
 
@@ -291,7 +293,7 @@ int main(int argc, char** argv) {
                   SDL_RenderCopy(renderer, textureTexte1, NULL, &Texte1);
                   SDL_RenderCopy(renderer, textureTexte2, NULL, &Texte2);
                   SDL_RenderCopy(renderer, textureTexte3, NULL, &Texte3);
-                  SDL_RenderCopy(renderer, textureTexte3, NULL, &Texte4);
+                  SDL_RenderCopy(renderer, textureTexte4, NULL, &Texte4);
 
 
                   // Rejouer une partie

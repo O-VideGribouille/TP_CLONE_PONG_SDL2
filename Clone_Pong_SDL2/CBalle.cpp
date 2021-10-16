@@ -120,23 +120,57 @@ void CBalle::DplcmntB()
 
 }
 
-void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
+//void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
+SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect ball, int* Pscoring1, SDL_Surface* surfaceSCR1, SDL_Texture* textureSCR1, string scrlink1, SDL_Renderer* renderer)
 {
+
 	//gauche + collision
 	if (ball.x <= 0.0f) {
 		ball.x = 0.0f;
 		speedX *= -1.0f;
-		
+
+
+		*Pscoring1 += 1;
 
 	}
+
+	scrlink1 = "./Sprite/" + to_string(*Pscoring1) + ".bmp";
+	surfaceSCR1 = SDL_LoadBMP(const_cast<char*>(scrlink1.c_str()));
+	//textureSCR1 = SDL_CreateTextureFromSurface(renderer, surfaceSCR1); // problème avec la texture, ne fait pas le changement
+	//SDL_FreeSurface(surfaceSCR1);
+
+	return SDL_CreateTextureFromSurface(renderer, surfaceSCR1);
+
+}
+
+SDL_Texture* CBalle::CllsnandRbd2(SDL_Rect ball, int* Pscoring2, SDL_Surface* surfaceSCR2, SDL_Texture* textureSCR2, string scrlink2, SDL_Renderer* renderer)
+{
+
 
 	//droite + collision
 	if (ball.x >= 800.0f - ball.w) {
 		ball.x = 800.0f - ball.w;
 		speedX *= -1.0f;
 
+
+		*Pscoring2 += 1;
 	}
 
+	scrlink2 = "./Sprite/" + to_string(*Pscoring2) + ".bmp";
+	surfaceSCR2 = SDL_LoadBMP(const_cast<char*>(scrlink2.c_str()));
+	//textureSCR2 = SDL_CreateTextureFromSurface(renderer, surfaceSCR2); // problème avec la texture, ne fait pas le changement
+	//SDL_FreeSurface(surfaceSCR2);
+
+	return SDL_CreateTextureFromSurface(renderer, surfaceSCR2);
+
+
+
+}
+
+
+void CBalle::CllsnandRbd3(SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
+{
+	
 	//haut
 	if (ball.y <= 0.0f) {
 		ball.y = 0.0f;
@@ -176,7 +210,7 @@ void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle
 
 	//Collision raquettre Joueur1
 	//la colision se fait du côté droit
-	if ((ball.x + ball.w >= playerPadle1.x
+	/*if ((ball.x + ball.w >= playerPadle1.x
 		&& ball.x + ball.w < playerPadle1.x + playerPadle1.w
 		&& ball.y >= playerPadle1.y
 		&& ball.y < playerPadle1.y + playerPadle1.h)
@@ -185,7 +219,7 @@ void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle
 		&& ball.x < playerPadle2.x + playerPadle2.w
 		&& ball.y >= playerPadle2.y
 		&& ball.y < playerPadle2.y + playerPadle2.h)) {
-		
+
 		speedX = -speedX * 1.01;
 
 		if (ball.x + ball.w >= playerPadle1.x
@@ -197,10 +231,30 @@ void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle
 		} else {
 			ball.x = playerPadle2.x + playerPadle2.w;
 		}
+	}*/
+
+
+	if (ball.x + ball.w >= playerPadle1.x
+		&& ball.x + ball.w < playerPadle1.x + playerPadle1.w
+		&& ball.y >= playerPadle1.y
+		&& ball.y < playerPadle1.y + playerPadle1.h) {
+		ball.x = playerPadle1.x - ball.w;
+		speedX *= -1.0f;
+
+	}
+
+	//Collision raquettre Joueur2
+	//la colision se fait du côté droit
+	if (ball.x >= playerPadle2.x
+		&& ball.x < playerPadle2.x + playerPadle2.w
+		&& ball.y >= playerPadle2.y
+		&& ball.y < playerPadle2.y + playerPadle2.h) {
+		ball.x = playerPadle2.x + playerPadle2.w;
+		speedX *= -1.0f;
+
 	}
 
 }
-
 
 
 
