@@ -121,6 +121,8 @@ void CBalle::DplcmntB()
 }
 
 //void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
+
+//ces deux fonction permette le changement de texture sans difficulté
 SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect ball, int* Pscoring1, SDL_Surface* surfaceSCR1, SDL_Texture* textureSCR1, string scrlink1, SDL_Renderer* renderer)
 {
 

@@ -78,14 +78,14 @@ int main(int argc, char** argv) {
 
     //init Score Joueur1
     SDL_Rect Score1;
-    Score1.x = 300;
+    Score1.x = 450;
     Score1.y = 30;
     Score1.w = Score1.h = 32;
 
 
     //init Score Joueur2
     SDL_Rect Score2;
-    Score2.x = 450;
+    Score2.x = 300;
     Score2.y = 30;
     Score2.w = Score2.h = 32;
 
@@ -177,7 +177,33 @@ int main(int argc, char** argv) {
                 }
 
 
+                //Rejouer
+                if (e.key.keysym.sym == SDLK_r) {
+                    SDL_RenderClear(renderer);
+                   
+                    //mise à zeor des scores
+                    scoring1 = 0;
+                    scoring2 = 0;
 
+                    //replacement raquette 1
+                    playerPadle1.x = Raquette1.getX();
+                    playerPadle1.y = Raquette1.getY();
+                    playerPadle1.w = Raquette1.getW();
+                    playerPadle1.h = Raquette1.getH();
+
+                    //replacement raquette 2
+                    playerPadle2.x = Raquette2.getX();
+                    playerPadle2.y = Raquette2.getY();
+                    playerPadle2.w = Raquette2.getW();
+                    playerPadle2.h = Raquette2.getH();
+
+                    //recentrement de la balle
+                    ball.x = cBalle.getX();
+                    ball.y = cBalle.getY();
+                    ball.w = cBalle.getW();
+                    ball.h = cBalle.getH();
+
+                }
             }
 
         }
@@ -245,10 +271,10 @@ int main(int argc, char** argv) {
 
 
                   SDL_Rect Texte1;
-                  Texte1.x = 400;
-                  Texte1.y = 200;
-                  Texte1.w = 180;
-                  Texte1.h = 152;
+                  Texte1.x = 150;
+                  Texte1.y = 250;
+                  Texte1.w = 320;
+                  Texte1.h = 130;
 
                   SDL_Surface* surfaceTexte2;
                   SDL_Texture* textureTexte2;
@@ -265,7 +291,7 @@ int main(int argc, char** argv) {
 
                   SDL_Surface* surfaceTexte3;
                   SDL_Texture* textureTexte3;
-                  surfaceTexte3 = SDL_LoadBMP("./Sprite/any.bmp");
+                  surfaceTexte3 = SDL_LoadBMP("./Sprite/R.bmp");
                   textureTexte3 = SDL_CreateTextureFromSurface(renderer, surfaceTexte3);
                   SDL_FreeSurface(surfaceTexte3);
 
@@ -298,12 +324,9 @@ int main(int argc, char** argv) {
 
                   // Rejouer une partie
 
-
-
-
-
-
               }
+
+              
 
 
 
