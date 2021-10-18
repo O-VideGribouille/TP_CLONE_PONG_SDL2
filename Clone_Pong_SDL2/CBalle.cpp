@@ -123,7 +123,7 @@ void CBalle::DplcmntB()
 //void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
 
 //ces deux fonction permette le changement de texture sans difficulté
-SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect ball, int* Pscoring1, SDL_Surface* surfaceSCR1, SDL_Texture* textureSCR1, string scrlink1, SDL_Renderer* renderer)
+SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect &ball, int* Pscoring1, SDL_Surface* surfaceSCR1, SDL_Texture* textureSCR1, string scrlink1, SDL_Renderer* renderer)
 {
 
 	//gauche + collision
@@ -133,6 +133,17 @@ SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect ball, int* Pscoring1, SDL_Surface* su
 
 
 		*Pscoring1 += 1;
+
+
+		/*ball.x = getX();
+		ball.y = getY();*/
+		
+		ball.x = (800 / 2) - (20 / 2);
+		ball.y = (600 / 2) - (20 / 2);
+
+		setspeedX((rand() % 5) - 2);
+		setspeedY((rand() % 5) - 2);
+
 
 	}
 
@@ -145,7 +156,7 @@ SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect ball, int* Pscoring1, SDL_Surface* su
 
 }
 
-SDL_Texture* CBalle::CllsnandRbd2(SDL_Rect ball, int* Pscoring2, SDL_Surface* surfaceSCR2, SDL_Texture* textureSCR2, string scrlink2, SDL_Renderer* renderer)
+SDL_Texture* CBalle::CllsnandRbd2(SDL_Rect &ball, int* Pscoring2, SDL_Surface* surfaceSCR2, SDL_Texture* textureSCR2, string scrlink2, SDL_Renderer* renderer)
 {
 
 
@@ -156,6 +167,14 @@ SDL_Texture* CBalle::CllsnandRbd2(SDL_Rect ball, int* Pscoring2, SDL_Surface* su
 
 
 		*Pscoring2 += 1;
+
+		ball.x = (800 / 2) - (20 / 2);
+		ball.y = (600 / 2) - (20 / 2);
+
+		setspeedX((rand() % 5) - 2);
+		setspeedY((rand() % 5) - 2);
+
+
 	}
 
 	scrlink2 = "./Sprite/" + to_string(*Pscoring2) + ".bmp";
@@ -169,20 +188,22 @@ SDL_Texture* CBalle::CllsnandRbd2(SDL_Rect ball, int* Pscoring2, SDL_Surface* su
 
 }
 
-
-void CBalle::CllsnandRbd3(SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
+void CBalle::CllsnandRbd3(SDL_Rect &ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
 {
 	
 	//haut
 	if (ball.y <= 0.0f) {
 		ball.y = 0.0f;
 		speedY *= -1.0f;
+
+
 	}
 
 	//bas
 	if (ball.y >= 600.0f - ball.h) {
 		ball.y = 600.0f - ball.h;
 		speedY *= -1.0f;
+
 	}
 
 
@@ -241,7 +262,11 @@ void CBalle::CllsnandRbd3(SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerP
 		&& ball.y >= playerPadle1.y
 		&& ball.y < playerPadle1.y + playerPadle1.h) {
 		ball.x = playerPadle1.x - ball.w;
-		speedX *= -1.0f;
+		//speedX *= -1.0f;
+		
+		//speedX = -abs(speedX) * 1.01;
+
+		speedX = -speedX * 1.01;
 
 	}
 
@@ -252,8 +277,12 @@ void CBalle::CllsnandRbd3(SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerP
 		&& ball.y >= playerPadle2.y
 		&& ball.y < playerPadle2.y + playerPadle2.h) {
 		ball.x = playerPadle2.x + playerPadle2.w;
-		speedX *= -1.0f;
+		//speedX *= -1.0f;
+		
+		//speedX = abs(speedX) * 1.01;
 
+
+		speedX = -speedX * 1.06; // augmentation de SpedX, sinon la vitesse diminue
 	}
 
 }

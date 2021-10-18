@@ -11,13 +11,14 @@
 #include "CJoueur.h"
 #include "CBalle.h"
 
+
 using namespace std;
 
 
 
 int main(int argc, char** argv) {
 
-    //Début et initialisation
+    //DEBUT INITIALISATIONS
     SDL_Init(SDL_INIT_EVERYTHING);
 
     //Création d'une fenêtre
@@ -76,21 +77,21 @@ int main(int argc, char** argv) {
     //Initialisation emplacement et taille
 
 
-    //init Score Joueur1
+    //init placement Score Joueur1
     SDL_Rect Score1;
     Score1.x = 450;
     Score1.y = 30;
     Score1.w = Score1.h = 32;
 
 
-    //init Score Joueur2
+    //init placement Score Joueur2
     SDL_Rect Score2;
     Score2.x = 300;
     Score2.y = 30;
     Score2.w = Score2.h = 32;
 
 
-    //Init raquette Joueur1
+    //Init placement raquette Joueur1
     CJoueur Raquette1(760, (600 / 2) - (100 / 2), 32, 100);
     SDL_Rect playerPadle1;
     playerPadle1.x = Raquette1.getX();
@@ -100,7 +101,7 @@ int main(int argc, char** argv) {
 
 
 
-    //Init raquette Joueur2
+    //Init placement raquette Joueur2
     CJoueur Raquette2(10, (600 / 2) - (100 / 2), 32, 100 );
     SDL_Rect playerPadle2;
     playerPadle2.x = Raquette2.getX();
@@ -108,7 +109,7 @@ int main(int argc, char** argv) {
     playerPadle2.w = Raquette2.getW();
     playerPadle2.h = Raquette2.getH();
 
-    //Init Balle
+    //Init placement Balle
     srand(time(NULL));
     CBalle cBalle(((800 / 2) - (20 / 2)), ((600 / 2) - (20 / 2)), 32, 32, 0, 0);
     //rand() % 4 --> direction de 0 à 3, chiffres positifs
@@ -126,13 +127,13 @@ int main(int argc, char** argv) {
 
 
        //Sert au déplacement de la balle
-       float bX = ball.x;
-       float bY = ball.y;
+      // float bX = ball.x;
+      // float bY = ball.y;
 
-
+       
       
 
-       // Jeu
+       //BOUCLE PRINCIPALE
     while (!quit) {
 
          //Event
@@ -141,13 +142,14 @@ int main(int argc, char** argv) {
                 quit = true;
             }
 
+            //HANDEVENT
             else if (e.type == SDL_KEYDOWN) {
 
                 //Déplacement Joueur1;                
-                if (e.key.keysym.sym == SDLK_UP) {//Vers le haut;
+                if (e.key.keysym.sym == SDLK_o) {//Vers le haut;
                     playerPadle1.y -= 50;
                 }
-                else if (e.key.keysym.sym == SDLK_DOWN) { //Vers le bas;
+                else if (e.key.keysym.sym == SDLK_l) { //Vers le bas;
                     playerPadle1.y += 50;
                 }
                 //Limitation du déplacement des raquettes
@@ -181,33 +183,33 @@ int main(int argc, char** argv) {
                 if (e.key.keysym.sym == SDLK_r) {
                     SDL_RenderClear(renderer);
                    
-                    //mise à zeor des scores
+                    //mise à zero des scores
                     scoring1 = 0;
                     scoring2 = 0;
 
                     //replacement raquette 1
                     playerPadle1.x = Raquette1.getX();
                     playerPadle1.y = Raquette1.getY();
-                    playerPadle1.w = Raquette1.getW();
-                    playerPadle1.h = Raquette1.getH();
+                   
 
                     //replacement raquette 2
                     playerPadle2.x = Raquette2.getX();
                     playerPadle2.y = Raquette2.getY();
-                    playerPadle2.w = Raquette2.getW();
-                    playerPadle2.h = Raquette2.getH();
+                   
 
                     //recentrement de la balle
                     ball.x = cBalle.getX();
                     ball.y = cBalle.getY();
-                    ball.w = cBalle.getW();
-                    ball.h = cBalle.getH();
+         
+
+                    cBalle.setspeedX((rand() % 5) - 2);
+                    cBalle.setspeedY((rand() % 5) - 2);
 
                 }
             }
 
         }
-             // Update
+             // UPDATE
 
              //déplacement de la balle
              cBalle.DplcmntB();
@@ -219,17 +221,18 @@ int main(int argc, char** argv) {
 
 
              //Rebond parrois
-           //  cBalle.CllsnandRbd(bX, bY, ball, playerPadle1, playerPadle2);
-            // cBalle.CllsnandRbd1(ball, playerPadle1, playerPadle2, Pscoring1, Pscoring2, surfaceSCR1, surfaceSCR2, textureSCR1, textureSCR2, scrlink1, scrlink2, renderer);
 
              textureSCR1 = cBalle.CllsnandRbd1(ball,  Pscoring1,  surfaceSCR1,  textureSCR1,  scrlink1, renderer);
              textureSCR2 = cBalle.CllsnandRbd2(ball, Pscoring2,surfaceSCR2, textureSCR2, scrlink2, renderer);
 
+             // Autres collisions
              cBalle.CllsnandRbd3(ball, playerPadle1, playerPadle2);
 
 
 
 
+
+             //AFFICHAGE + SYNCHRONISATION
 
              // Renderer et dessin
              SDL_SetRenderDrawColor(renderer, 0, 27, 27, 27);// Color le fond en noir
@@ -321,16 +324,13 @@ int main(int argc, char** argv) {
                   SDL_RenderCopy(renderer, textureTexte3, NULL, &Texte3);
                   SDL_RenderCopy(renderer, textureTexte4, NULL, &Texte4);
 
-
-                  // Rejouer une partie
-
               }
 
               
 
 
 
-          //}
+          
 
             // Affiche le nouveau contenu
             SDL_RenderPresent(renderer);
@@ -341,8 +341,9 @@ int main(int argc, char** argv) {
 
 
 
-
-
+        
+        
+        //DESTRUCTION MEMOIRE
         //Si quit = true
 
         //Fin
@@ -350,5 +351,5 @@ int main(int argc, char** argv) {
         SDL_DestroyWindow(window);
         SDL_Quit();
 
-	return 0;
+	return 0;// FIN PROGRAMME
 }
