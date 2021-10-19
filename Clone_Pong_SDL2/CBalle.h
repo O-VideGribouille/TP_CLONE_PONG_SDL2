@@ -50,7 +50,7 @@ public:
 
 
 	
-//Accesseurs
+	//Mutateurs
 	void setX(int n_x = 9);
 	void setY(int n_y = 9);
 	void setW(int n_w = 9);
