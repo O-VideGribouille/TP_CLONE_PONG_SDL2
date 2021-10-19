@@ -204,7 +204,8 @@ int main(int argc, char** argv) {
              //déplacement de la balle
              cBalle.DplcmntB();
 
-             ball.x += cBalle.getspeedX(); //sert à la direction/déplacement de la balle
+             //sert à la direction/déplacement de la balle
+             ball.x += cBalle.getspeedX(); 
              ball.y += cBalle.getspeedY();
 
 
