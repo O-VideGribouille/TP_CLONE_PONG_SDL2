@@ -64,7 +64,6 @@ public:
 	//Changement de la direction de la balle
 	void DplcmntB();
 
-	//void CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2, );
 	SDL_Texture* CllsnandRbd1(SDL_Rect &ball, int * Pscoring1, SDL_Surface *surfaceSCR1,SDL_Texture *textureSCR1, string scrlink1, SDL_Renderer* renderer);
 	SDL_Texture* CllsnandRbd2(SDL_Rect &ball, int *Pscoring2, SDL_Surface *surfaceSCR2, SDL_Texture *textureSCR2, string scrlink2, SDL_Renderer* renderer);
 

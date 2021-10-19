@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     SDL_FreeSurface(surfaceBall);
 
     int scoring1 = 0;// servira pour le changement de score sans devoir créer d'autres image à la suite
-    int *Pscoring1 = &scoring1;// servira pour le changement de score sans devoir créer d'autres image à la suite
+    int *Pscoring1 = &scoring1;
 
     string scrlink1 = "./Sprite/" + to_string(*Pscoring1) + ".bmp";// convertie l'integer en chaine de caractères
     //IMG Score Joueur1
@@ -72,19 +72,17 @@ int main(int argc, char** argv) {
 
 
     bool quit = false; // Lier à la présence de la fenêtre
-    //bool endplay = false; //sert pour la fin de partie
 
     //Initialisation emplacement et taille
 
-
-    //init placement Score Joueur1
+    //Init placement Score Joueur1
     SDL_Rect Score1;
     Score1.x = 450;
     Score1.y = 30;
     Score1.w = Score1.h = 32;
 
 
-    //init placement Score Joueur2
+    //Init placement Score Joueur2
     SDL_Rect Score2;
     Score2.x = 300;
     Score2.y = 30;
@@ -124,19 +122,11 @@ int main(int argc, char** argv) {
        cBalle.setspeedX((rand() % 5) - 2);
        cBalle.setspeedY((rand() % 5) - 2);
 
-
-
-       //Sert au déplacement de la balle
-      // float bX = ball.x;
-      // float bY = ball.y;
-
-       
-      
-
-       //BOUCLE PRINCIPALE
+    
+    //BOUCLE PRINCIPALE
     while (!quit) {
 
-         //Event
+        //Event
         while (SDL_PollEvent(&e) > 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
@@ -214,14 +204,11 @@ int main(int argc, char** argv) {
              //déplacement de la balle
              cBalle.DplcmntB();
 
-             
-
              ball.x += cBalle.getspeedX(); //sert à la direction/déplacement de la balle
              ball.y += cBalle.getspeedY();
 
 
-             //Rebond parrois
-
+             //Rebond parrois gauche et droite + Changement score
              textureSCR1 = cBalle.CllsnandRbd1(ball,  Pscoring1,  surfaceSCR1,  textureSCR1,  scrlink1, renderer);
              textureSCR2 = cBalle.CllsnandRbd2(ball, Pscoring2,surfaceSCR2, textureSCR2, scrlink2, renderer);
 
@@ -239,16 +226,16 @@ int main(int argc, char** argv) {
              SDL_RenderClear(renderer); // Efface l'écran et les couleur disposées;
 
 
-               //écriture du score
+              //écriture du score
               SDL_RenderCopy(renderer, textureSCR1, NULL, &Score1);
-               SDL_RenderCopy(renderer, textureSCR2, NULL, &Score2);
+              SDL_RenderCopy(renderer, textureSCR2, NULL, &Score2);
 
               //dessiner les raquettes de joueurs
               SDL_RenderCopy(renderer, textureJ1, NULL, &playerPadle1);
               SDL_RenderCopy(renderer, textureJ2, NULL, &playerPadle2);
 
         
-             //dessiner la balle
+              //dessiner la balle
               SDL_RenderCopy(renderer, textureBall, NULL, &ball);
 
 
@@ -258,8 +245,6 @@ int main(int argc, char** argv) {
 
               //Text replay + recommencer une partie
               if (scoring1 >= 3 || scoring2 >= 3) {
-
-                  //endplay = true;
 
                   SDL_RenderClear(renderer); // Efface l'écran et les couleur disposées;
 
@@ -326,11 +311,6 @@ int main(int argc, char** argv) {
 
               }
 
-              
-
-
-
-          
 
             // Affiche le nouveau contenu
             SDL_RenderPresent(renderer);
@@ -338,11 +318,6 @@ int main(int argc, char** argv) {
             SDL_Delay(1000 / 60);
      }
 
-
-
-
-        
-        
         //DESTRUCTION MEMOIRE
         //Si quit = true
 

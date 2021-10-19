@@ -111,16 +111,8 @@ void CBalle::DplcmntB()
 		speedY = -1.0f;
 	}
 
-	//speedX += (speedX/abs(speedX))/1000;
-	//speedY += (speedY / abs(speedY))/1000;
-
-
-
-
-
 }
 
-//void CBalle::CllsnandRbd(float bX, float bY, SDL_Rect ball, SDL_Rect playerPadle1, SDL_Rect playerPadle2)
 
 //ces deux fonction permette le changement de texture sans difficulté
 SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect &ball, int* Pscoring1, SDL_Surface* surfaceSCR1, SDL_Texture* textureSCR1, string scrlink1, SDL_Renderer* renderer)
@@ -134,9 +126,6 @@ SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect &ball, int* Pscoring1, SDL_Surface* s
 
 		*Pscoring1 += 1;
 
-
-		/*ball.x = getX();
-		ball.y = getY();*/
 		
 		ball.x = (800 / 2) - (20 / 2);
 		ball.y = (600 / 2) - (20 / 2);
@@ -149,8 +138,7 @@ SDL_Texture* CBalle::CllsnandRbd1(SDL_Rect &ball, int* Pscoring1, SDL_Surface* s
 
 	scrlink1 = "./Sprite/" + to_string(*Pscoring1) + ".bmp";
 	surfaceSCR1 = SDL_LoadBMP(const_cast<char*>(scrlink1.c_str()));
-	//textureSCR1 = SDL_CreateTextureFromSurface(renderer, surfaceSCR1); // problème avec la texture, ne fait pas le changement
-	//SDL_FreeSurface(surfaceSCR1);
+	
 
 	return SDL_CreateTextureFromSurface(renderer, surfaceSCR1);
 
@@ -179,8 +167,7 @@ SDL_Texture* CBalle::CllsnandRbd2(SDL_Rect &ball, int* Pscoring2, SDL_Surface* s
 
 	scrlink2 = "./Sprite/" + to_string(*Pscoring2) + ".bmp";
 	surfaceSCR2 = SDL_LoadBMP(const_cast<char*>(scrlink2.c_str()));
-	//textureSCR2 = SDL_CreateTextureFromSurface(renderer, surfaceSCR2); // problème avec la texture, ne fait pas le changement
-	//SDL_FreeSurface(surfaceSCR2);
+	
 
 	return SDL_CreateTextureFromSurface(renderer, surfaceSCR2);
 
@@ -262,9 +249,7 @@ void CBalle::CllsnandRbd3(SDL_Rect &ball, SDL_Rect playerPadle1, SDL_Rect player
 		&& ball.y >= playerPadle1.y
 		&& ball.y < playerPadle1.y + playerPadle1.h) {
 		ball.x = playerPadle1.x - ball.w;
-		//speedX *= -1.0f;
 		
-		//speedX = -abs(speedX) * 1.01;
 
 		speedX = -speedX * 1.01;
 
@@ -277,12 +262,9 @@ void CBalle::CllsnandRbd3(SDL_Rect &ball, SDL_Rect playerPadle1, SDL_Rect player
 		&& ball.y >= playerPadle2.y
 		&& ball.y < playerPadle2.y + playerPadle2.h) {
 		ball.x = playerPadle2.x + playerPadle2.w;
-		//speedX *= -1.0f;
 		
-		//speedX = abs(speedX) * 1.01;
 
-
-		speedX = -speedX * 1.06; // augmentation de SpedX, sinon la vitesse diminue
+		speedX = -speedX * 1.09; // augmentation de SpeedX, sinon la vitesse diminue, commence à partir du 8ème échanges, cela est visible à partir du 15ème échange 
 	}
 
 }
